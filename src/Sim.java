@@ -6,25 +6,6 @@ public class Sim {
     boolean[][] inputsOverTime;
     boolean[] output;
 
-    /* OLD CONSTRUCTOR
-     * Constructor for the Sim class.
-     * It initializes the instance variables with the provided values.
-     * It also initializes the 'inputsOverTime' array with the size of 'inputAmt' x 'timeSteps' and the 'output' array with the size of 'timeSteps'.
-     * Finally, it calls the 'processFile' method with the provided filename to populate the 'inputsOverTime' array.
-     *
-     * @param filename The name of the file to process. The file should contain the state of each input over time.
-     * @param equation The formula to use for the simulation. Operand placeholders are represented as "E" followed by the operand index (starting from 1). !!FORMULA IS NOT CHECKED FOR VALIDITY THOROUGHLY!!
-     * @param timeSteps The number of time steps for the simulation.
-     * @param inputAmt The number of inputs for the simulation.
-    public Sim(String filename, String equation, int timeSteps, int inputAmt) {
-        this.timeSteps = timeSteps;
-        this.inputAmt = inputAmt;
-        this.equation = equation;
-        this.inputsOverTime = new boolean[inputAmt][timeSteps];
-        this.output = new boolean[timeSteps];
-        processFile(filename);
-    }*/
-
     /**
      * This is the constructor for the Sim class.
      * It initializes the 'equation' instance variable with the provided value.

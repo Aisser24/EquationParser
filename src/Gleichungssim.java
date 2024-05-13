@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
 
 public class Gleichungssim extends JFrame {
     private JTextField formulaField;
@@ -99,29 +98,4 @@ public class Gleichungssim extends JFrame {
             }
         });
     }
-
-    /*private void processFile(String filename) {
-        try {
-            File file = new File(filename);
-            FileReader fileReader = new FileReader(file);
-            BufferedReader scanner = new BufferedReader(fileReader);
-
-            int lineCount = 0;
-            while (scanner.readLine() != null) {
-                lineCount++;
-            }
-            this.inputAmt = lineCount;
-
-            // Reset the scanner to the start of the file
-
-            scanner = new BufferedReader(new FileReader(file));
-            String line = scanner.readLine();
-            this.timeSteps = line.length();
-
-            scanner.close();
-            fileReader.close();
-        } catch (java.io.IOException e) {
-            throw new RuntimeException("IO Exception" + e);
-        }
-    }*/
 }
