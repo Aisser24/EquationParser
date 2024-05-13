@@ -9,8 +9,6 @@ public class Gleichungssim extends JFrame {
     private JTextArea outputField;
     private JButton calculateButton;
     private JComboBox<String> fileSelector;
-    private int inputAmt;
-    private int timeSteps;
 
     public Gleichungssim() {
         createUIComponents();
@@ -48,12 +46,15 @@ public class Gleichungssim extends JFrame {
         calculateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String formula = formulaField.getText();
-                String selectedFile = (String) fileSelector.getSelectedItem();
-                processFile(selectedFile);
-                Sim sim = new Sim(selectedFile, formula, timeSteps, inputAmt);
-                boolean[] output = sim.run();
-                outputField.setText("Y = " + sim);
+                try {
+                    String formula = formulaField.getText();
+                    String selectedFile = (String) fileSelector.getSelectedItem();
+                    Sim sim = new Sim(selectedFile, formula);
+                    boolean[] output = sim.run();
+                    outputField.setText("Y = " + sim);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                }
             }
         });
 
@@ -99,7 +100,7 @@ public class Gleichungssim extends JFrame {
         });
     }
 
-    private void processFile(String filename) {
+    /*private void processFile(String filename) {
         try {
             File file = new File(filename);
             FileReader fileReader = new FileReader(file);
@@ -122,5 +123,5 @@ public class Gleichungssim extends JFrame {
         } catch (java.io.IOException e) {
             throw new RuntimeException("IO Exception" + e);
         }
-    }
+    }*/
 }

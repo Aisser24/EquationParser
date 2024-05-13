@@ -6,7 +6,7 @@ public class Sim {
     boolean[][] inputsOverTime;
     boolean[] output;
 
-    /**
+    /* OLD CONSTRUCTOR
      * Constructor for the Sim class.
      * It initializes the instance variables with the provided values.
      * It also initializes the 'inputsOverTime' array with the size of 'inputAmt' x 'timeSteps' and the 'output' array with the size of 'timeSteps'.
@@ -16,13 +16,26 @@ public class Sim {
      * @param equation The formula to use for the simulation. Operand placeholders are represented as "E" followed by the operand index (starting from 1). !!FORMULA IS NOT CHECKED FOR VALIDITY THOROUGHLY!!
      * @param timeSteps The number of time steps for the simulation.
      * @param inputAmt The number of inputs for the simulation.
-     */
     public Sim(String filename, String equation, int timeSteps, int inputAmt) {
         this.timeSteps = timeSteps;
         this.inputAmt = inputAmt;
         this.equation = equation;
         this.inputsOverTime = new boolean[inputAmt][timeSteps];
         this.output = new boolean[timeSteps];
+        processFile(filename);
+    }*/
+
+    /**
+     * This is the constructor for the Sim class.
+     * It initializes the 'equation' instance variable with the provided value.
+     * It also calls the 'processFile' method with the provided filename to populate the 'inputsOverTime' array.
+     * The 'timeSteps' and 'inputAmt' instance variables are initialized within the 'processFile' method.
+     *
+     * @param filename The name of the file to process. The file should contain the state of each input over time.
+     * @param equation The formula to use for the simulation. Operand placeholders are represented as "E" followed by the operand index (starting from 1). !!FORMULA IS NOT CHECKED FOR VALIDITY THOROUGHLY!!
+     */
+    public Sim(String filename, String equation) {
+        this.equation = equation;
         processFile(filename);
     }
 
@@ -64,6 +77,10 @@ public class Sim {
         formula = formula.replaceAll("\\s", "");
         if (formula.matches(".*=.*")) {
             formula = formula.substring(formula.indexOf("=") + 1);
+        }
+        String regex = "^((\\()|(\\))|(true)|(false)|(and)|(or)|(not)|(nor)|(nand)|(xor)|(xnor))*$";
+        if (!formula.matches(regex)) {
+            throw new IllegalArgumentException("Invalid formula");
         }
 
         return evaluateExpression(formula);
@@ -155,18 +172,40 @@ public class Sim {
             File file = new File(filename);
             FileReader fileReader = new FileReader(file);
             BufferedReader scanner = new BufferedReader(fileReader);
+            String line;
 
-            for (int i = 0; i < inputAmt; i++) {
-                String line = scanner.readLine();
-                if (line != null) {
-                    for (int j = 0; j < timeSteps; j++) {
-                        inputsOverTime[i][j] = Character.getNumericValue(line.charAt(j)) == 1;
-                    }
+            /*
+            *  Initialize the timeSteps and inputAmt variables
+            * */
+            if ((line = scanner.readLine()) == null) {
+                throw new RuntimeException("Empty file");
+            }
+            this.timeSteps = line.length();
+            int i = 1;
+            while ((line = scanner.readLine()) != null)   {
+                i++;
+            }
+            this.inputAmt = i;
+            this.inputsOverTime = new boolean[inputAmt][timeSteps];
+            this.output = new boolean[timeSteps];
+
+            scanner = new BufferedReader(new FileReader(file));
+            i = 0;
+
+            while ((line = scanner.readLine()) != null)   {
+                if (line.length() != timeSteps) {
+                    throw new RuntimeException("Invalid input file - some lines may have an invalid length.");
                 }
+                for (int j = 0; j < timeSteps; j++) {
+                    inputsOverTime[i][j] = Character.getNumericValue(line.charAt(j)) == 1;
+                }
+                i++;
             }
 
             scanner.close();
             fileReader.close();
+
+
         } catch (java.io.IOException e) {
             throw new RuntimeException("IO Exception" + e);
         }
