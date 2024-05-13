@@ -21,6 +21,28 @@ Valid equations use the following convention:
 Here's an example for a valid equation:
 `Y = (E1 xor E2) or ((E4 nor E5) and E3)`
 
+> [!TIP]
+> ### You can download / start the program with the following commands:
+>
+> **MacOS / Linux**
+> ```
+> git clone https://github.com/Aisser24/EquationParser
+> ```
+> ```
+> cd ./EquationParser/src && java Gleichungssim.java
+> ```
+>
+> **Windows**
+> ```
+> git clone https://github.com/Aisser24/EquationParser
+> ```
+> ```
+> cd .\EquationParser\src
+> java .\Gleichungssim.java
+> ```
+
+
+
 > [!CAUTION]
 > In order to use the standard-inputs you may have to move the `standardInputs.txt` file into the same folder as the `Gleichungssim.java` file.
 
