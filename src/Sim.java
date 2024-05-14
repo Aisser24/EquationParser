@@ -13,7 +13,7 @@ public class Sim {
      * The 'timeSteps' and 'inputAmt' instance variables are initialized within the 'processFile' method.
      *
      * @param filename The name of the file to process. The file should contain the state of each input over time.
-     * @param equation The formula to use for the simulation. Operand placeholders are represented as "E" followed by the operand index (starting from 1). !!FORMULA IS NOT CHECKED FOR VALIDITY THOROUGHLY!!
+     * @param equation The formula to use for the simulation. Operand placeholders are represented as "E" followed by the operand index (starting from 1).
      */
     public Sim(String filename, String equation) {
         this.equation = equation;
